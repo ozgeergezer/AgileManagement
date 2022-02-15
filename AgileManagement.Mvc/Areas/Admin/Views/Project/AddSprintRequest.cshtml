@@ -1,23 +1,119 @@
 ﻿@model AgileManagement.Application.dtos.project.SprintProjectResponseDto
 
 
+
 @{
     ViewData["Title"] = "AddSprintRequest";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
 <h1>AddSprintRequest</h1>
+<br />
 
-<table class="table table-striped">
-    <tr>
-        <th>Sprint Name</th>
-              
-    </tr>
-    <tr>
-        <th>
-            @Model.Projects.Sprints
-        </th>
-    </tr>
 
-   
-</table>
+<!-- Button trigger modal -->
+<button type="button" id="sprintAdd" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">
+    Launch static backdrop modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="date" id="startDate" name="startDate" value="" />
+                <input type="date" id="endDate" name="endDate" value="" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" onclick="SendSprintRequest('@Model.Projects.ProjectId')">Kaydet</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@foreach (var sprint in Model.Projects.Sprints)
+{
+
+    <div class="accordion" id="accordionExample">
+        <div class="card">
+            <div class="card-header" id="heading-@sprint.SprintName">
+                <h2 class="mb-0">
+                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse-@sprint.SprintName" aria-expanded="true">
+                        @sprint.SprintName
+                        @sprint.StartDate.ToString("d") - @sprint.EndDate.ToString("d")
+                    </button>
+                </h2>
+            </div>
+
+            <div id="collapse-@sprint.SprintName" class="collapse" aria-labelledby="heading-@sprint.SprintName" data-parent="#accordionExample">
+                <div class="card-body">
+                    Some placeholder content for the first accordion panel. This panel is shown by default, thanks to the <code>.show</code> class.
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@*<input type="date" id="startDate" name="startDate" value="" />
+<input type="date" id="endDate" name="endDate" value="" />
+<button type="submit" onclick="SendSprintRequest('@Model.Projects.ProjectId')">Kaydet</button>*@
+
+@section Scripts{
+
+    <script>
+        function SendSprintRequest(projectId) {
+
+            const startDate = $("#startDate").val();
+            const endDate = $("#endDate").val();
+
+            console.log("start date", startDate);
+
+            const param = {
+
+                startDate,
+                endDate,
+                projectId
+            };
+
+            console.log('param', param);
+
+            $.ajax({
+                method: 'Post',
+                url: '/Admin/Project/AddSprintRequest',
+                contentType: 'application/json',
+                data: JSON.stringify(param), // data body den gönder demek
+                success: (response) => {
+                    alert('Başarılı')
+                },
+                error: (error) => {
+                    console.log('error', error);
+                }
+            })
+
+
+        }
+
+        function AddSprint() {
+            const startDate = $("#startDate").val();
+            const endDate = $("#endDate").val();
+
+            const sprint = {
+                startDate,
+                endDate
+            }
+            if (!) {
+
+            }
+        }
+
+
+    </script>
+}

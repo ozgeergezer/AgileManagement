@@ -27,7 +27,7 @@ namespace AgileManagement.Application.services.sprint
                 ProjectId = a.Id,
                 Name = a.Name,
                 Description = a.Description,
-                Sprints = a.Sprints.Select(o => new SprintDto
+                Sprints = a.Sprints.OrderBy(x=>x.SprintName).Select(o => new SprintDto
                 {
                     SprintName = o.SprintName,
                     //SprintNo = x.SprintNo,

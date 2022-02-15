@@ -1,12 +1,14 @@
 ﻿using AgileManagement.Application;
 using AgileManagement.Application.services.sprint;
 using AgileManagement.Domain;
+using AgileManagement.Domain.models;
 using AgileManagement.Mvc.Areas.Admin.Models;
 using AgileManagement.Mvc.Controllers;
 using AgileManagement.Mvc.Services;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +27,7 @@ namespace AgileManagement.Mvc.Areas.Admin.Controllers
         private readonly IContributorProjectAccessApprovementService _contributorProjectAccessApprovementService;
         private readonly ISprintService _sprintService;
 
-        public ProjectController(IProjectRepository projectRepository, IUserRepository userRepository, IProjectWithContributorsRequestService projectWithContributorsRequestService, IMapper mapper, AuthenticatedUser authenticatedUser, IContributorProjectAccessApprovementService contributorProjectAccessApprovementService,ISprintService sprintService) : base(authenticatedUser)
+        public ProjectController(IProjectRepository projectRepository, IUserRepository userRepository, IProjectWithContributorsRequestService projectWithContributorsRequestService, IMapper mapper, AuthenticatedUser authenticatedUser, IContributorProjectAccessApprovementService contributorProjectAccessApprovementService, ISprintService sprintService) : base(authenticatedUser)
         {
             _projectRepository = projectRepository;
             _userRepository = userRepository;
@@ -101,7 +103,7 @@ namespace AgileManagement.Mvc.Areas.Admin.Controllers
             return View(response.Projects[0]);
 
         }
-    
+
 
 
 
@@ -121,11 +123,26 @@ namespace AgileManagement.Mvc.Areas.Admin.Controllers
             return Json("OK");
 
         }
+        [HttpGet]
         public IActionResult AddSprintRequest(string projectId)
         {
             var response = _sprintService.OnProcess(projectId);
-            return View(response.Projects);
+            return View(response);
+        }
+        [HttpPost]
+        public JsonResult AddSprintRequest([FromBody] SetSprintInputModel model)
+        {
+            var project = _projectRepository.GetQuery().Include(x => x.Sprints).Where(c => c.Id == model.ProjectId).FirstOrDefault();
+
+            if (project != null)
+            {
+                project.AddSprint(new Sprint(model.StartDate, model.EndDate));
+            _projectRepository.Save();
+
+            }
+
+            return Json("OK");
         }
 
-    }
+    } 
 }

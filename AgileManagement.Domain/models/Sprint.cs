@@ -12,7 +12,7 @@ namespace AgileManagement.Domain.models
         public string SprintName { get; private set; }
         public DateTime StartDate { get; private set; }
         public DateTime EndDate { get; private set; }
-        public int SprintNo { get; set; }
+       // public int SprintNo { get; set; }
 
         public Sprint(DateTime startDate, DateTime endDate)
         {

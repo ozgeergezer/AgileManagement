@@ -14,6 +14,5 @@ namespace AgileManagement.Mvc.Areas.Admin.Models
         public string Description { get; set; }
 
 
-
     }
 }

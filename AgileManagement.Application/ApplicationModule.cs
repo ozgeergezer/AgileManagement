@@ -20,7 +20,7 @@ namespace AgileManagement.Application
             services.AddScoped<IUserRegisterService, UserRegisterService>();
             services.AddScoped<IAccountVerifyService, AccountVerifyService>();
             services.AddScoped<IUserLoginService, UserLoginService>();
-            services.AddScoped<ISprintService, SprintService>();
+            services.AddScoped<ISprintService, SprintService>(); //newlememekk içn
 
             services.AddScoped<IProjectWithContributorsRequestService, ProjectWithContributorsRequestService>();
             services.AddScoped<IContributorProjectAccessApprovementService, ContributorProjectAccessApprovementService>();
