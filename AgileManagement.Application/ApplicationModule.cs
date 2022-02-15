@@ -1,4 +1,5 @@
 ﻿using AgileManagement.Application;
+using AgileManagement.Application.services.sprint;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace AgileManagement.Application
             services.AddScoped<IUserRegisterService, UserRegisterService>();
             services.AddScoped<IAccountVerifyService, AccountVerifyService>();
             services.AddScoped<IUserLoginService, UserLoginService>();
+            services.AddScoped<ISprintService, SprintService>();
 
             services.AddScoped<IProjectWithContributorsRequestService, ProjectWithContributorsRequestService>();
             services.AddScoped<IContributorProjectAccessApprovementService, ContributorProjectAccessApprovementService>();

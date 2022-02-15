@@ -7,22 +7,24 @@ using System.Threading.Tasks;
 
 namespace AgileManagement.Application.dtos.project
 {
-    public class SprintProjectResponseDto
+    public class SprintDto
     {
         public string SprintName { get; set; }
         public int SprintNo { get; set; } = 1;
         public DateTime StartDate { get; set; } = DateTime.Now;
         public DateTime EndDate { get; set; } = DateTime.Now.AddDays(14);
-
+    }
+    public class ProjectSprintDto
+    {
+        public string ProjectId { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public List<SprintDto> Sprints { get; set; } = new List<SprintDto>();
     }
 
-
-
-
-    public class ProjectWithContributorsResponseDto
+    public class SprintProjectResponseDto
     {
-
-        public List<ProjectDto> Projects = new List<ProjectDto>();
+        public ProjectSprintDto Projects = new ProjectSprintDto();
 
     }
 }

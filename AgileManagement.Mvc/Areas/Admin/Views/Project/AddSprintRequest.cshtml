@@ -1,0 +1,23 @@
+﻿@model AgileManagement.Application.dtos.project.SprintProjectResponseDto
+
+
+@{
+    ViewData["Title"] = "AddSprintRequest";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>AddSprintRequest</h1>
+
+<table class="table table-striped">
+    <tr>
+        <th>Sprint Name</th>
+              
+    </tr>
+    <tr>
+        <th>
+            @Model.Projects.Sprints
+        </th>
+    </tr>
+
+   
+</table>

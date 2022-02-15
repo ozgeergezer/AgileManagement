@@ -81,7 +81,7 @@ namespace AgileManagement.Domain
         }
         public void AddSprint(Sprint sprint)
         {
-            
+
             //sprints.Add(sprint);
             //DomainEvent.Raise(new )
 
@@ -97,6 +97,29 @@ namespace AgileManagement.Domain
             //    contributors.Add(contributor);
             //    DomainEvent.Raise(new ContributorSendAccessRequestEvent(this.Name, this.Id, contributor.UserId));
             //}
+
+            var lastSprint = sprints.OrderByDescending(x => x.EndDate).First();
+
+            if ((sprint.StartDate - DateTime.Now).Days < 0)
+            {
+                throw new Exception("Sprint başlangıç tarihiniz geçmiş tarih olamaz.");
+            }
+            if ((lastSprint.EndDate - sprint.StartDate).Days > 0)
+            {
+                throw new Exception("Girdiğiniz sprint tarihi son sprintten büyük olmadılıdır.");
+            }
+            if ((sprint.EndDate - sprint.StartDate).Days < 0)
+            {
+                throw new Exception("Sprint bitiş tarihi giriş tarihinden büyük olmadılıdır.");
+            }
+            if ((sprint.EndDate - sprint.StartDate).Days < 7 && (sprint.EndDate - sprint.StartDate).Days > 14)
+            {
+                throw new Exception("Sprint tarihi maksimum 1 hafta olmalıdır.");
+            }
+            sprint.SetSprintName(sprints.Count + 1);
+            sprints.Add(sprint);
+
+
         }
     }
     

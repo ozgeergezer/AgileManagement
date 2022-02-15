@@ -9,42 +9,39 @@ using System.Threading.Tasks;
 
 namespace AgileManagement.Application.services.sprint
 {
-    public class SprintService 
+    public class SprintService :ISprintService
     {
         private readonly IProjectRepository _projectRepository;
-        private readonly IUserRepository _userRepository;
 
-        public SprintService(IProjectRepository projectRepository,IUserRepository userRepository)
+        public SprintService(IProjectRepository projectRepository)
         {
-            _userRepository = userRepository;
             _projectRepository = projectRepository;
         }
 
-
-
-        public ProjectDto OnProcess(string projectId)
+        public SprintProjectResponseDto OnProcess(string projectId)
         {
             var query = _projectRepository.GetQuery();
 
-            var sprint = query.Where(x => x.Id == projectId).Include(x => x.Sprints).Select(a => new ProjectDto
+            var sprint = query.Where(x => x.Id == projectId).Include(x => x.Sprints).Select(a => new ProjectSprintDto
             {
                 ProjectId = a.Id,
                 Name = a.Name,
                 Description = a.Description,
-                Sprints = a.Sprints.Select(x => new SprintProjectResponseDto
+                Sprints = a.Sprints.Select(o => new SprintDto
                 {
-
-                    SprintName = x.SprintName,
-                    SprintNo = x.SprintNo,
-                    StartDate = x.StartDate,
-                    EndDate = x.EndDate
-
+                    SprintName = o.SprintName,
+                    //SprintNo = x.SprintNo,
+                    StartDate = o.StartDate,
+                    EndDate = o.EndDate
                 }).ToList()
-
             }).FirstOrDefault();
 
+            var response = new SprintProjectResponseDto
+            {
+                Projects = sprint
+            };
 
-            return sprint;
+            return response;
         }
     }
 }

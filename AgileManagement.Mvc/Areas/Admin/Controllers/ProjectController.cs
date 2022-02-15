@@ -41,8 +41,6 @@ namespace AgileManagement.Mvc.Areas.Admin.Controllers
             return View();
         }
 
-       
-
         public IActionResult Management()
         {
 
@@ -103,11 +101,7 @@ namespace AgileManagement.Mvc.Areas.Admin.Controllers
             return View(response.Projects[0]);
 
         }
-        public IActionResult AddSprintRequest(string projectId) 
-        {
-          //  var response = _sprintService.OnProcess(new SprintService { });
-        }
-
+    
 
 
 
@@ -127,5 +121,11 @@ namespace AgileManagement.Mvc.Areas.Admin.Controllers
             return Json("OK");
 
         }
+        public IActionResult AddSprintRequest(string projectId)
+        {
+            var response = _sprintService.OnProcess(projectId);
+            return View(response.Projects);
+        }
+
     }
 }

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace AgileManagement.Application.services.sprint
 {
-    public interface ISprintService : IApplicationService<string, ProjectDto>
+    public interface ISprintService : IApplicationService<string, SprintProjectResponseDto>
     {
        
     }
