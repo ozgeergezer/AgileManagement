@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AgileManagement.Persistence.EF.migrations.projectdb
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220211071602_ProjectCreatedBy")]
-    partial class ProjectCreatedBy
+    [Migration("20220214102626_AppUser")]
+    partial class AppUser
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

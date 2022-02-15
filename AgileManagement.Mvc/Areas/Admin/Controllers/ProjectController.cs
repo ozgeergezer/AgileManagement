@@ -1,4 +1,5 @@
 ﻿using AgileManagement.Application;
+using AgileManagement.Application.services.sprint;
 using AgileManagement.Domain;
 using AgileManagement.Mvc.Areas.Admin.Models;
 using AgileManagement.Mvc.Controllers;
@@ -22,14 +23,16 @@ namespace AgileManagement.Mvc.Areas.Admin.Controllers
         private readonly IProjectWithContributorsRequestService _projectWithContributorsRequestService;
         private readonly IMapper _mapper;
         private readonly IContributorProjectAccessApprovementService _contributorProjectAccessApprovementService;
+        private readonly ISprintService _sprintService;
 
-        public ProjectController(IProjectRepository projectRepository, IUserRepository userRepository, IProjectWithContributorsRequestService projectWithContributorsRequestService, IMapper mapper, AuthenticatedUser authenticatedUser, IContributorProjectAccessApprovementService contributorProjectAccessApprovementService) : base(authenticatedUser)
+        public ProjectController(IProjectRepository projectRepository, IUserRepository userRepository, IProjectWithContributorsRequestService projectWithContributorsRequestService, IMapper mapper, AuthenticatedUser authenticatedUser, IContributorProjectAccessApprovementService contributorProjectAccessApprovementService,ISprintService sprintService) : base(authenticatedUser)
         {
             _projectRepository = projectRepository;
             _userRepository = userRepository;
             _projectWithContributorsRequestService = projectWithContributorsRequestService;
             _mapper = mapper;
             _contributorProjectAccessApprovementService = contributorProjectAccessApprovementService;
+            _sprintService = sprintService;
         }
 
         public IActionResult Index()
@@ -38,7 +41,7 @@ namespace AgileManagement.Mvc.Areas.Admin.Controllers
             return View();
         }
 
-
+       
 
         public IActionResult Management()
         {
@@ -100,6 +103,11 @@ namespace AgileManagement.Mvc.Areas.Admin.Controllers
             return View(response.Projects[0]);
 
         }
+        public IActionResult AddSprintRequest(string projectId) 
+        {
+          //  var response = _sprintService.OnProcess(new SprintService { });
+        }
+
 
 
 

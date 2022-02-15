@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AgileManagement.Application.dtos.project;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -33,6 +34,7 @@ namespace AgileManagement.Application
         /// Projeye eklenen contributorler
         /// </summary>
         public List<ContributorDto> Contributors { get; set; } = new List<ContributorDto>();
+        public List<SprintProjectResponseDto> Sprints { get; set; } = new List<SprintProjectResponseDto>();
     }
 
     public class ProjectWithContributorsResponseDto
